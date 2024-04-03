@@ -1,13 +1,28 @@
-const path = require("path");
+const {readFile, writeFile}  = require("fs");
 
-const filePath = path.join("/content", "subfolder", "test.txt");
-console.log(filePath);
+readFile("./content/first.txt", "utf8", (err, result) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
+    const first = result;
 
-const base = path.basename(filePath);
-console.log(base);
+readFile("./content/second.txt", "utf8", (err, result) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
+     const second = result;
 
-const absolute = path.resolve(__dirname, "content", "subfolder", "test.txt");
-console.log(absolute);
-
-const absolute2 = path.resolve(__filename, "content", "subfolder");
-console.log(absolute2);
+writeFile(
+    "./content/result_sync.txt",
+    `Here is the result:=> ${first} , ${second}`,
+    (err, result) => {
+        if (err) {
+            console.log(err);
+            return err;
+        }
+        console.log(result);
+    });
+});
+});
