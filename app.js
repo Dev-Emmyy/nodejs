@@ -1,28 +1,19 @@
-const {readFile, writeFile}  = require("fs");
+const http = require("http");
 
-readFile("./content/first.txt", "utf8", (err, result) => {
-    if (err) {
-        console.log(err);
-        return err;
-    }
-    const first = result;
-
-readFile("./content/second.txt", "utf8", (err, result) => {
-    if (err) {
-        console.log(err);
-        return err;
-    }
-     const second = result;
-
-writeFile(
-    "./content/result_sync.txt",
-    `Here is the result:=> ${first} , ${second}`,
-    (err, result) => {
-        if (err) {
-            console.log(err);
-            return err;
-        }
-        console.log(result);
-    });
+const server = http.createServer((req, res) => {
+  if (req.url === "/") {
+    res.end("Welcome to our home page");
+  } else if (req.url === "/about") {
+    res.end("Here is our about page");
+  } else {
+    res.end(`
+      <h1>Oops</h1>
+      <p>We can't seem to find the page</p>
+      <a href="/">Back home</a>
+    `);
+  }
 });
+
+server.listen(5000, () => {
+  console.log("Server is running on port 5000");
 });
