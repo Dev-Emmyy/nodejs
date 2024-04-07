@@ -1,19 +1,6 @@
-const http = require("http");
+const _ = require("lodash");
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    res.end("Welcome to our home page");
-  } else if (req.url === "/about") {
-    res.end("Here is our about page");
-  } else {
-    res.end(`
-      <h1>Oops</h1>
-      <p>We can't seem to find the page</p>
-      <a href="/">Back home</a>
-    `);
-  }
-});
+const arrayedItems = [1,[2,[3,4,[5]]]];
+const arrangedItems = _.flattenDeep(arrayedItems);
 
-server.listen(5000, () => {
-  console.log("Server is running on port 5000");
-});
+console.log(arrangedItems);
