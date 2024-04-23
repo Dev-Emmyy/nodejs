@@ -1,7 +1,22 @@
-const _ = require("lodash");
+const {readFile} = require("fs");
 
-const arrayedItems = [1,[2,[3,4,[5]]]];
-const arrangedItems = _.flattenDeep(arrayedItems);
+console.log("Complete");
 
-console.log(arrangedItems);
-console.log("Hello Eclipse World");
+readFile("./content/second.txt", "utf8", (err, result) => {
+    if (err) {
+        console.log(err);
+        return
+    }
+    console.log(result);
+    console.log("Completed Task");
+});
+
+console.log("Starting Next Task");
+
+
+
+
+
+
+
+
