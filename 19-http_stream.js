@@ -1,8 +1,18 @@
 const http = require("http");
-const fs = require("fs");
-
+const {createReadStream} = require("fs");
 
 http.createServer((req,res) => {
-    const text = fs.readFileSync("./contentt/big.txt");
-    res.end(text);
+    const fileStreams = createReadStream("./content/big.txt", "utf8");
+    fileStreams.on("open", () => {
+        fileStreams.pipe(res);
+    });
+
+    fileStreams.on("error",(error) => {
+        res.end(error)
+    })
+    
 }).listen(5000);
+
+
+
+
