@@ -4,12 +4,14 @@
   "description": "",
   "main": "1-intro.js",
   "scripts": {
-    "start" : "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.19.2",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
