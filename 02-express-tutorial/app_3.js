@@ -1,18 +1,33 @@
-const express = require('express');
+const express = require("express");
 const app = express();
+const {products} = require("./data");
 
 app.get("/", (req,res) => {
-    res.status(200).send("Home page");
+    res.send('<h1>Hello World <a href="/api/products">products</a></h1>');
 });
 
-app.get("/about", (req,res) => {
-    res.status(200).send("My About page");
+app.get("/api/products", (req,res) => {
+    const newProducts = products.map((products) => {
+        const {id,name,image} = products
+        return {id,name,image}
+    })
+    res.json(newProducts);
 });
 
-app.all("*",(req,res) => {
-    res.status(404).send("<h1>Resource not found</h1>")
-})
-
-app.listen(5000,() => { 
-    console.log("Server is up and running.");
+app.get("/api/products/:proID", (req,res) => {
+    const {proID} = req.params;
+    const singleProducts = products.find((product) => product.id === Number(proID))
+    if (!singleProducts) {
+       return res.status(404).send("Product not found")
+    }
+    res.json(singleProducts);
 });
+
+app.get("/api/products/:proID/reviews/:reviewsID", (req,res) => {
+    res.send("Hello Error")
+});
+
+app.listen(5000,() => {
+    console.log("Server is running on port 5000");
+});
+
